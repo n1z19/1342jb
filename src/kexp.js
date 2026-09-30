@@ -155,6 +155,7 @@ async function sendElf(name, payload, p, chain) {
 
 export async function loadOptionalPayloads(p, chain, log) {
   log("preparing optional payloads");
+  const appdumper = await mapElf("ps5appdumper.elf", p, chain);
   const kstuff = await mapElf("kstuff.elf", p, chain);
   const shadowmount = await mapElf("shadowmountplus.elf", p, chain);
   const etaHEN = await mapElf("etaHEN.elf", p, chain);
@@ -165,6 +166,8 @@ export async function loadOptionalPayloads(p, chain, log) {
   log("shadowmountplus.elf sent");
   await sendElf("etaHEN.elf", etaHEN, p, chain);
   log("etaHEN.elf sent");
+  await sendElf("ps5appdumper.elf", appdumper, p, chain);
+  log("ps5appdumper.elf sent");
 }
 
 function patchShellcode(blob, symbols) {
